@@ -106,6 +106,8 @@ On Vercel, set these variables in the intended deployment environment. RPC URLs 
 
 [src/config.js](src/config.js) contains public brand and feature configuration. Project Mint, ticker, trading URL and holder threshold remain unset. The optional project-token observer and authenticated workspace are disabled. A project address is never inferred from a reference website or sample record.
 
+The homepage **RELVYK CA** panel reads only `tokenConfig.mint` in that configuration file. Leave it `null` until the official address is provided. Once configured, the complete address is displayed and the copy button confirms successful clipboard writes with **Copied**. No sample address is used, and setting the Mint does not enable other token features.
+
 ## Data boundaries
 
 | Area | Scope and limits |

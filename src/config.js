@@ -9,7 +9,10 @@ export const brandConfig = Object.freeze({
 // Set only after the project owner explicitly confirms the Mint and network.
 // No address from the reference website is treated as a project asset.
 export const tokenConfig = Object.freeze({
-  network: 'mainnet-beta', mint: null, ticker: null, tradeUrl: null,
+  network: 'mainnet-beta',
+  // Single source for the homepage RELVYK CA. Leave null until officially provided.
+  mint: null,
+  ticker: null, tradeUrl: null,
   holderAccessEnabled: false, holderThreshold: null,
 });
 

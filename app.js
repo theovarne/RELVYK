@@ -16,6 +16,7 @@ import { createShowcaseVisibilityBridge } from './src/showcase-lifecycle.js';
 import { rpc, validateInput } from './src/solana/client.js';
 import { renderResultView, renderChecks, availableTabs } from './src/result-view.js';
 import { node, action, display, shortAddress, utc, safeExplorerURL, toast, copyText, exportJSON } from './src/ui-helpers.js';
+import { mountProjectCA } from './src/project-ca.js';
 
 /** @template {keyof import('./src/ui-types.js').UIElements} K @param {K} id @returns {import('./src/ui-types.js').UIElements[K]} */
 const $ = id => /** @type {import('./src/ui-types.js').UIElements[K]} */ (document.getElementById(id));
@@ -26,6 +27,7 @@ const engine = createTaskEngine({ store });
 const library = createReflexLibrary({ store, engine });
 const wallet = createWalletService();
 const showcaseBridge = createShowcaseVisibilityBridge(document.querySelector('.hero-machine iframe'));
+const projectCA = mountProjectCA({ address: tokenConfig.mint });
 export const uiState = {
   taskType: 'transaction', inputs: { transaction: '', token: '', snapshot: '' },
   selectedStage: 'SENSE', manualStage: false, resultTab: 'overview', pendingTemplate: null,
@@ -356,4 +358,4 @@ document.querySelectorAll('[data-evidence-view]').forEach(button=>button.addEven
 $('evidence-drawer').addEventListener('close',()=>{if(!experience.getState().expanded)window.scrollTo({top:uiState.evidenceScroll,behavior:'instant'});});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)replay.pause();});
 document.title = `${brandConfig.name} — ${brandConfig.description}`;
-window.addEventListener('pagehide', event => { engine.cancel(); if (!event.persisted) { replay.destroy();experience.destroy();blueprint.destroy();dossiers?.destroy();evidencePanel?.destroy();model.destroy(); wallet.destroy(); showcaseBridge.destroy(); navigation.disconnect(); } });
+window.addEventListener('pagehide', event => { engine.cancel(); if (!event.persisted) { projectCA.destroy();replay.destroy();experience.destroy();blueprint.destroy();dossiers?.destroy();evidencePanel?.destroy();model.destroy(); wallet.destroy(); showcaseBridge.destroy(); navigation.disconnect(); } });

@@ -5,6 +5,10 @@ export interface UIElements {
   'wallet-trigger': HTMLButtonElement;
   'overview': HTMLElement;
   'take-tour': HTMLButtonElement;
+  'project-ca-title': HTMLHeadingElement;
+  'project-ca-address': HTMLElement;
+  'project-ca-copy': HTMLButtonElement;
+  'project-ca-status': HTMLParagraphElement;
   'hero-view': HTMLElement;
   'hero-selected': HTMLElement;
   'skip-intro': HTMLButtonElement;

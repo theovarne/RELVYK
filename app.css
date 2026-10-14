@@ -102,6 +102,20 @@ h1 { font-size: clamp(45px, 4.1vw, 58px); line-height: 1.07; letter-spacing: -.0
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 17px 22px; margin-top: 30px; }
 .hero-actions .primary { min-height: 48px; font-size: 13px; }
 .hero-actions .text-button { font-size: 13px; }
+.hero-ca { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 12px; max-width: 440px; margin-top: 20px; padding: 13px 14px; border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent-primary); background: var(--bg-panel); }
+.ca-solana { display: flex; color: var(--accent-primary); }
+.ca-solana svg { width: 22px; height: 22px; fill: currentColor; }
+.ca-content { min-width: 0; }
+.ca-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.hero-ca h2 { font: 550 11px/1.4 var(--font-mono); letter-spacing: .06em; }
+.ca-network { color: var(--text-secondary); font: 8px/1.4 var(--font-mono); letter-spacing: .06em; }
+#project-ca-address { display: block; color: var(--text-primary); font-size: 10px; line-height: 1.6; overflow-wrap: anywhere; user-select: text; }
+.hero-ca .ca-copy { gap: 7px; min-width: 91px; min-height: 32px; padding: 6px 9px; font-size: 10px; }
+.ca-copy svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.hero-ca .ca-copy:disabled { cursor: default; opacity: .5; }
+.hero-ca .ca-copy:disabled:hover { color: var(--text-primary); border-color: var(--border-subtle); background: transparent; }
+.hero-ca .ca-copy[data-copy-state='success'] { color: var(--accent-success); border-color: var(--accent-success); }
+.hero-ca .ca-copy[data-copy-state='error'] { color: var(--accent-warning); border-color: var(--accent-warning); }
 .hero-copy > .small-note { margin-top: 15px; }
 .hero-strap { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 42px; padding-top: 20px; border-top: 1px solid var(--border-subtle); color: var(--text-secondary); font-family: var(--font-mono); font-size: 9px; letter-spacing: .07em; }
 .hero-machine { min-width: 0; background: var(--bg-secondary); border: 1px solid var(--border-subtle); }
