@@ -1,0 +1,12 @@
+node_modules/
+public/
+.vercel/
+.env
+.env.local
+.env.*.local
+!.env.example
+*.log
+.DS_Store
+.vercel
+.env*
+!.env.example

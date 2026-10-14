@@ -1,0 +1,64 @@
+{
+  "description": "Real public Solana RPC responses captured read-only during this task. No fixture is a RESNOMO project Mint or a fabricated event.",
+  "records": [
+    {
+      "file": "token-tx-0.json",
+      "capturedAt": "2026-10-14T12:16:50.755Z",
+      "network": "devnet",
+      "source": "https://api.devnet.solana.com",
+      "observationType": "Captured public RPC response; fixture replay is not a new live query"
+    },
+    {
+      "file": "token2022-tx-1.json",
+      "capturedAt": "2026-10-14T12:16:59.369Z",
+      "network": "devnet",
+      "source": "https://api.devnet.solana.com",
+      "observationType": "Captured public RPC response; fixture replay is not a new live query"
+    },
+    {
+      "file": "token-mint-0-0.json",
+      "capturedAt": "2026-10-14T12:16:51.522Z",
+      "network": "devnet",
+      "source": "https://api.devnet.solana.com",
+      "observationType": "Captured public RPC response; fixture replay is not a new live query"
+    },
+    {
+      "file": "token2022-mint-0-0.json",
+      "capturedAt": "2026-10-14T12:16:58.594Z",
+      "network": "devnet",
+      "source": "https://api.devnet.solana.com",
+      "observationType": "Captured public RPC response; fixture replay is not a new live query"
+    },
+    {
+      "file": "token2022-binary.json",
+      "capturedAt": "2026-10-14T12:27:09.018Z",
+      "network": "devnet",
+      "source": "https://api.devnet.solana.com",
+      "method": "getAccountInfo",
+      "params": [
+        "7mqdwH6yrbUZcx4jKomAYG2A6mEnuf4hdH5yt4XM14gv",
+        {
+          "encoding": "base64",
+          "commitment": "confirmed"
+        }
+      ],
+      "observationType": "Real read-only public RPC capture; fixture replay is not a fresh live query"
+    },
+    {
+      "file": "mainnet-v1-failed.json",
+      "capturedAt": "2026-10-14T12:54:02.137Z",
+      "network": "mainnet-beta",
+      "source": "https://api.mainnet-beta.solana.com",
+      "method": "getTransaction",
+      "params": [
+        "2iKX75nDizwkSm6FbZMJdBV226fTreHQwAfK1MyJyAjv6mnP9ekAsdpnqMsKMf5ytv2bshGbbWHQTuZU4SoVb1Ld",
+        {
+          "encoding": "jsonParsed",
+          "commitment": "confirmed",
+          "maxSupportedTransactionVersion": 1
+        }
+      ],
+      "observationType": "Real read-only mainnet version1 failed chain transaction capture; replay is not a new live query"
+    }
+  ]
+}
