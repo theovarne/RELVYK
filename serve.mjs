@@ -104,6 +104,6 @@ server.listen(port, "127.0.0.1", () => {
   console.log(`RELVYK preview: http://127.0.0.1:${port}/`);
 });
 server.on("error", (error) => {
-  console.error(`本地预览启动失败：${error.message}`);
+  console.error(`Local preview failed to start: ${error.message}`);
   process.exitCode = 1;
 });

@@ -1,61 +1,61 @@
-# RELVYK 升级交付与验收
+# RELVYK Upgrade Delivery and Verification
 
-交付日期：2026-10-14。链上观察时间统一为 UTC。本报告汇总实际完成的代码、浏览器检查和部署结果，区分实时查询、真实响应回放与 mock 测试。
+Delivery date: 2026-10-14. All on-chain observation times use UTC. This report summarizes the implemented code, browser checks, and deployment results, distinguishing live queries, replay of captured real responses, and mock tests.
 
-## 实际修改
+## Implemented Changes
 
-- 在原有静态 HTML/CSS/JavaScript 项目上升级，保留等距 SVG 六部件解剖、机械引擎展示、选择、拆解、复位与键盘操作；采用暖白、石墨、钴蓝及少量深薄荷绿，重新组织 Overview、Inspect、Engine、Reflexes、Evidence、Docs。
-- 建立唯一任务状态：INPUT → SENSE → PLAN → AUTHORIZE → EXECUTE → VERIFY → REMEMBER。阶段、模型反馈、检查与记录使用同一来源；查询完成即显示结果，取消与新输入使过期响应失效。
-- 实现真实只读交易解析、Mint 属性/权限/Token-2022 扩展读取、账户快照及同账户同网络比较。保留原始响应、未知字段、失败原因与整数精度；交易失败与解析任务完成分别记录。
-- 实现三个实际 Reflex 模板、参数副本、搜索/筛选、真实运行计数及版本隔离。Transaction 检查版本为 `1.1.0`，支持 legacy/v0/v1 及 v1 签名资源配置检查；Mint 和 Snapshot 模板为 `1.0.0`。
-- 实现 IndexedDB 证据、步骤回放、JSON 导出、记录删除及关联快照删除。回放不产生新查询或执行次数。存储不可用时明确使用页面会话内存。
-- 实现 Wallet Standard 发现、连接状态和可取消的页面会话观察队列。普通查询不需要钱包或签名，不发送资金交易。清理复制来源的开发者经历、宣传链接及未经确认的项目 CA，保留第三方许可。
+- Upgraded the existing static HTML/CSS/JavaScript project while retaining its six-part isometric SVG anatomy, mechanical engine display, selection, exploded view, reset, and keyboard controls. Applied warm white, graphite, cobalt blue, and restrained deep mint green, and reorganized Overview, Inspect, Engine, Reflexes, Evidence, and Docs.
+- Established a single task state: INPUT → SENSE → PLAN → AUTHORIZE → EXECUTE → VERIFY → REMEMBER. Stages, model feedback, checks, and records share the same source. Results appear when the query completes; cancellation and new inputs invalidate stale responses.
+- Implemented real read-only transaction inspection, Mint properties and authorities, Token-2022 extension reads, account snapshots, and comparisons for the same account on the same network. Preserved raw responses, unknown fields, failure reasons, and integer precision. On-chain transaction failure is recorded separately from successful completion of its inspection.
+- Implemented three usable Reflex templates, parameterized copies, search and filtering, actual execution counts, and version isolation. Transaction checks use version `1.1.0`, supporting legacy/v0/v1 transactions and checks of signed version 1 resource configuration. Mint and Snapshot templates use version `1.0.0`.
+- Implemented IndexedDB evidence storage, step replay, JSON export, record deletion, and deletion of associated snapshots. Replay creates no new queries or execution counts. When persistent storage is unavailable, the interface explicitly identifies page-session memory storage.
+- Implemented Wallet Standard discovery, connection state, and a cancellable page-session observation queue. Ordinary queries require neither a wallet nor a signature and send no asset transactions. Removed the reference site's developer biography, promotional links, and unconfirmed project CA while preserving third-party licenses.
 
-## 真实接口与浏览器结果
+## Real API and Browser Results
 
-以下为实际本地浏览器通过真实 RPC 完成的只读查询，地址均是验收样本，**不是 RELVYK 项目 Mint**。
+The following read-only queries were completed in the local browser through real RPC endpoints. All addresses are verification samples and **are not the RELVYK project Mint**.
 
-| 样本 | 网络/结果 |
+| Sample | Network and result |
 | --- | --- |
-| legacy 交易 `5TWqTumm…gs5SfPJS` | Devnet，slot `510983971`，解析完成。 |
-| v0 交易 `2f8FEwP4…b9iamcz` | Devnet，slot `510983995`，版本化账户及指令解析完成。 |
-| v1 失败交易 `2iKX75nD…SoVb1Ld` | Mainnet Beta，slot `456844515`，finalized；链上错误为 Instruction 0 / Custom 12，解析任务完成，未将链上交易显示为成功。 |
-| 原始 Token Program Mint `Aj1…` | Supply `1501030000`，decimals `6`；Mint Authority 确认存在，Freeze Authority 确认已撤销。 |
-| Token-2022 Mint `7mqdwH6yrbUZcx4jKomAYG2A6mEnuf4hdH5yt4XM14gv` | 本次浏览器观察 Supply `747018364.316342795`；读取到扩展类型 `18/3/19`，展示范围与限制。供应量随观察时间可能变化。 |
-| Native SOL Mint `So11111111111111111111111111111111111111112` | Mint/Freeze Authority 均确认已撤销。 |
-| 钱包地址 `AVm…` | 判定为非 Mint；未把缺失权限字段解释为已撤销。 |
-| 不匹配网络的交易查询 | RPC 返回 null；显示来源未返回记录，未声称交易从未存在。 |
-| 同账户 `AVm…` 两次 Devnet 快照 | 真实观察时间 `2026-10-14T12:56:43.472Z` 和 `2026-10-14T13:02:56.396Z`；SOL 变化 `-11.427290083`，本次 Token 查询返回空集合；未将差额称为利润，也未宣称覆盖完整资产组合。 |
+| Legacy transaction `5TWqTumm…gs5SfPJS` | Devnet, slot `510983971`; inspection completed. |
+| v0 transaction `2f8FEwP4…b9iamcz` | Devnet, slot `510983995`; versioned accounts and instructions were parsed. |
+| Failed v1 transaction `2iKX75nD…SoVb1Ld` | Mainnet Beta, slot `456844515`, finalized. The on-chain error was Instruction 0 / Custom 12. Inspection completed without presenting the on-chain transaction as successful. |
+| Original Token Program Mint `Aj1…` | Supply `1501030000`, decimals `6`; Mint Authority confirmed present and Freeze Authority confirmed revoked. |
+| Token-2022 Mint `7mqdwH6yrbUZcx4jKomAYG2A6mEnuf4hdH5yt4XM14gv` | Supply observed in this browser session: `747018364.316342795`. Extension types `18/3/19` were read, with coverage and limitations displayed. Supply may change between observations. |
+| Native SOL Mint `So11111111111111111111111111111111111111112` | Both Mint Authority and Freeze Authority were confirmed revoked. |
+| Wallet address `AVm…` | Identified as a non-Mint account; missing authority fields were not interpreted as revoked authorities. |
+| Transaction query on a mismatched network | RPC returned null. The interface stated that the source had not returned a record, without claiming the transaction had never existed. |
+| Two Devnet snapshots of the same account `AVm…` | Actual observation times: `2026-10-14T12:56:43.472Z` and `2026-10-14T13:02:56.396Z`. SOL change: `-11.427290083`; the Token query returned an empty collection. The difference was not described as profit, and complete portfolio coverage was not claimed. |
 
-已部署 Preview 还通过其原生 `/api/rpc` 完成两次独立真实浏览器查询：
+The deployed Preview also completed two independent real browser queries through its native `/api/rpc` endpoint:
 
-- Devnet legacy：观察于 `2026-10-14T13:20:52.537Z`。完整签名、来源、检查、时间线和原始依据见 [live-preview-transaction.json](evidence/live-preview-transaction.json)。
-- Mainnet v1 失败交易：观察于 `2026-10-14T13:26:22.796Z`，finalized，错误保持 Instruction 0 / Custom 12。完整依据见 [live-preview-mainnet-v1.json](evidence/live-preview-mainnet-v1.json)。
+- Devnet legacy transaction: observed at `2026-10-14T13:20:52.537Z`. The full signature, source, checks, timeline, and raw evidence are available in [live-preview-transaction.json](evidence/live-preview-transaction.json).
+- Failed Mainnet v1 transaction: observed at `2026-10-14T13:26:22.796Z`, finalized, with Instruction 0 / Custom 12 preserved. Full evidence is available in [live-preview-mainnet-v1.json](evidence/live-preview-mainnet-v1.json).
 
-真实浏览器检查还覆盖：首页 CTA 聚焦实际输入框、导航及 Docs 返回、模型键盘选择/拆解/复位、结果 Tab 键盘操作、IndexedDB 恢复、复制反馈和 JSON 导出。Preview 保存参数副本后显示 0 次运行，实际 Run 后为 1 次；Replay 后记录数量仍为 2；删除弹窗的 Keep record 正常关闭。
+Real browser checks also covered the homepage CTA focusing the actual input field, navigation and return from Docs, keyboard selection/explosion/reset of the model, keyboard operation of result tabs, IndexedDB restoration, copy feedback, and JSON export. On Preview, a saved parameterized template initially showed 0 executions and showed 1 after an actual Run. Replay left the record count at 2. The deletion dialog's Keep record action closed the dialog correctly.
 
-## 自动测试、工程检查及明确限制
+## Automated Tests, Engineering Checks, and Limitations
 
-最终 **106 项自动测试全部通过**：6 项回放已捕获的真实 RPC 响应，97 项使用 mock/合成数据，3 项检查纯 UI 的导出/URL/日期边界。真实响应及捕获时间记录在 `tests/fixtures/solana/provenance.json`；回放不是新的实时查询。
+All **106 automated tests passed**: 6 replay captured real RPC responses, 97 use mock or synthetic data, and 3 check UI export, URL, and date boundaries. Real responses and capture times are recorded in `tests/fixtures/solana/provenance.json`. Their replay is not a new live query.
 
-ESLint、CheckJS/TypeScript 类型检查及生产构建均退出码 0。发布客户端为 31 个白名单文件，私密路径、测试、环境配置、旧 CA 与密钥匹配数为 0；原生 RPC Function 为 7.87 KB。不存在关闭检查、删除测试或随机生成实时数据的做法。
+ESLint, CheckJS/TypeScript type checking, and the production build all exited with code 0. The released client contained 31 allowlisted files, with zero matches for private paths, tests, environment configuration, the old CA, or secrets. The native RPC Function was 7.87 KB. Checks were not disabled, tests were not removed, and random live data was not generated.
 
-以下项目仅通过 mock/合成测试，未宣称真实钱包或链上实测：钱包连接/拒绝/断开/切换账户、多钱包发现、真正删除记录、超时/限流/缓存过期/过期输入、本地存储不可用/配额异常、重复观察事件与队列。浏览器未检测到兼容钱包，因此没有真实钱包签名；减少动态效果通过 mock 检查，未修改用户操作系统设置。
+The following were verified only with mock or synthetic tests, without claiming real wallet or live on-chain verification: wallet connection/rejection/disconnection/account switching, multiple-wallet discovery, actual record deletion, timeouts/rate limits/cache expiry/stale inputs, unavailable local storage/quota failures, and duplicate observation events and queue handling. The browser detected no compatible wallet, so no real wallet signature was obtained. Reduced-motion behavior was checked with mocks; the user's operating system settings were not changed.
 
-当前项目 Mint 为 null，项目观察 feature 为 false；没有运行真实项目代币事件监控。持币门槛与认证云工作区关闭，无持续后台运行、收益承诺、买卖、托管或主网资金操作。
+The project Mint is currently null and the project observation feature is false. No real project-token event monitoring was run. Holder gating and the authenticated cloud workspace are disabled. There is no continuous background execution, return guarantee, trading, custody, or Mainnet asset operation.
 
-## 配置与关键文件
+## Configuration and Key Files
 
-- `src/config.js`：统一品牌与功能；`tokenConfig.mint/ticker/tradeUrl` 当前均为 null。确认项目 CA 后，只在此处设置已确认 Mint、网络及有效链接；如需有限会话观察，再明确开启 `features.projectTokenObserver`。持币及认证能力仍需真实服务边界。
-- `.env.example`：可选服务器专用 `SOLANA_MAINNET_RPC_URL`、`SOLANA_DEVNET_RPC_URL`、`SOLANA_TESTNET_RPC_URL`。默认公共 RPC 已通过真实查询，核心功能无需额外密钥；托管 RPC 可用于改善配额和可用性，密钥不得暴露前端。
-- 界面与模型：`index.html`、`app.css`、`app.js`、`docs.html`、`model.css`、`src/model-controller.js`、`src/result-view.js`、`src/ui-helpers.js`、`figures/verification-engine.html`。
-- 功能与数据：`src/task-engine.js`、`src/evidence-store.js`、`src/reflex-library.js`、`src/solana/`、`src/wallet-service.js`、`src/session-observer.js`、`src/observation-queue.js`、`api/rpc.js`。
-- 工程：`package.json`、锁文件、`eslint.config.js`、`tsconfig.json`、`scripts/build.mjs`、`serve.mjs`、`vercel.json`、`tests/`。基线审查见 [site-audit.md](site-audit.md)。
+- `src/config.js`: unified brand and feature configuration. `tokenConfig.mint/ticker/tradeUrl` are currently null. Once the project CA is confirmed, set the confirmed Mint, network, and valid links here. Enable `features.projectTokenObserver` explicitly if bounded session observation is required. Holder access and authentication still require real service-side enforcement.
+- `.env.example`: optional server-only `SOLANA_MAINNET_RPC_URL`, `SOLANA_DEVNET_RPC_URL`, and `SOLANA_TESTNET_RPC_URL`. The default public RPC endpoints passed real queries, so core features require no additional keys. A hosted RPC provider can improve quotas and availability; its keys must not be exposed to the client.
+- Interface and model: `index.html`, `app.css`, `app.js`, `docs.html`, `model.css`, `src/model-controller.js`, `src/result-view.js`, `src/ui-helpers.js`, and `figures/verification-engine.html`.
+- Features and data: `src/task-engine.js`, `src/evidence-store.js`, `src/reflex-library.js`, `src/solana/`, `src/wallet-service.js`, `src/session-observer.js`, `src/observation-queue.js`, and `api/rpc.js`.
+- Engineering: `package.json`, the lockfile, `eslint.config.js`, `tsconfig.json`, `scripts/build.mjs`, `serve.mjs`, `vercel.json`, and `tests/`. See [site-audit.md](site-audit.md) for the baseline audit.
 
-## 截图与 Preview
+## Screenshots and Preview
 
-1440px、1920px、390px 已检查，无横向溢出。截图包括 [1440 首页](screenshots/after-1440.jpg)、[1920 首页](screenshots/after-1920.jpg)、[1440 工作台](screenshots/after-workbench-1440.jpg)、[1920 工作台](screenshots/after-workbench-1920.jpg)、[窄屏首页](screenshots/after-mobile.jpg)、[窄屏工作台](screenshots/after-mobile-workbench.jpg)、[内容](screenshots/after-content.jpg)、[底部](screenshots/after-footer.jpg)、[Docs](screenshots/after-docs.jpg)、[真实 mainnet v1 查询](screenshots/after-live-mainnet-v1.jpg)。修改前截图保留在同一目录。
+The 1440px, 1920px, and 390px layouts were checked with no horizontal overflow. Screenshots include the [1440px homepage](screenshots/after-1440.jpg), [1920px homepage](screenshots/after-1920.jpg), [1440px workspace](screenshots/after-workbench-1440.jpg), [1920px workspace](screenshots/after-workbench-1920.jpg), [narrow-screen homepage](screenshots/after-mobile.jpg), [narrow-screen workspace](screenshots/after-mobile-workbench.jpg), [content](screenshots/after-content.jpg), [footer](screenshots/after-footer.jpg), [Docs](screenshots/after-docs.jpg), and [real Mainnet v1 query](screenshots/after-live-mainnet-v1.jpg). Before-change screenshots are retained in the same directory.
 
-可访问 Preview：<https://resnomo-replica-8p8k3n3f3-zs2.vercel.app/>。部署到既有 `zs2/resnomo-replica`，Deployment `dpl_9v7qkjEMbsPCxhyUTdrGo2zC4YRn` 为 READY，target 明确为 Preview。未推广生产域名，未更改归属或 DNS。本报告和源码压缩包是部署后的交付材料，没有因报告或新头像再部署。
+Accessible [Preview](https://resnomo-replica-8p8k3n3f3-zs2.vercel.app/): deployed to the existing `zs2/resnomo-replica` project. Deployment `dpl_9v7qkjEMbsPCxhyUTdrGo2zC4YRn` was READY and explicitly targeted Preview. No production domain was promoted, and ownership and DNS were unchanged. This report and the source archive were prepared after deployment; neither the report nor the new avatar triggered another deployment.
 
-源码包 `resnomo-solana-upgrade.zip` 包含源码、测试、许可、截图和验收证据；排除 `.git`、`node_modules`、构建目录 `public`、`.vercel`、真实 `.env*`、日志、work 和凭据，保留空白 `.env.example`。后续生成的头像是独立素材，不写入现有网站，也不纳入此源码包。
+The source archive `resnomo-solana-upgrade.zip` contains source code, tests, licenses, screenshots, and verification evidence. It excludes `.git`, `node_modules`, the `public` build directory, `.vercel`, actual `.env*` files, logs, work files, and credentials, while retaining the blank `.env.example`. The subsequently generated avatar is a separate asset: it was not added to the existing website or included in this source archive.
